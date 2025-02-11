@@ -1,0 +1,17 @@
+{
+    "name": "microslim/api-gateway",
+    "description": "API Gateway for MicroSlim",
+    "require": {
+        "ext-json": "*",
+        "firebase/php-jwt": "^6.11",
+        "monolog/monolog": "^2.8",
+        "php-di/php-di": "^6.4",
+        "slim/psr7": "^1.5",
+        "slim/slim": "^4.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "ApiGateway\\": "src/"
+        }
+    }
+}

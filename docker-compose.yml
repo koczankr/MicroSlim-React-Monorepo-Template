@@ -1,0 +1,105 @@
+services:
+  # Backend Services
+  composer-api-gateway:
+    image: composer:latest
+    volumes:
+      - ./backend/api-gateway:/app
+    working_dir: /app
+    command: install
+
+  composer-public-service:
+    image: composer:latest
+    volumes:
+      - ./backend/services/public-service:/app
+    working_dir: /app
+    command: install
+
+  composer-private-service:
+    image: composer:latest
+    volumes:
+      - ./backend/services/private-service:/app
+    working_dir: /app
+    command: install
+
+  api-gateway:
+    build: ./backend/api-gateway
+    volumes:
+      - ./backend/api-gateway:/var/www
+    depends_on:
+      - composer-api-gateway
+    ports:
+      - "8000:8000"
+
+  public-service:
+    build: ./backend/services/public-service
+    volumes:
+      - ./backend/services/public-service:/var/www
+    depends_on:
+      - composer-public-service
+    ports:
+      - "8001:8000"
+
+  private-service:
+    build: ./backend/services/private-service
+    volumes:
+      - ./backend/services/private-service:/var/www
+    depends_on:
+      - composer-private-service
+    ports:
+      - "8002:8000"
+
+  db:
+    image: mariadb:10.11.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+
+  # Frontend Services
+  shell:
+    build: ./frontend/shell
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/shell:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  micro-public:
+    build: ./frontend/microfrontends/micro-public
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./frontend/microfrontends/micro-public:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  micro-private:
+    build: ./frontend/microfrontends/micro-private
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./frontend/microfrontends/micro-private:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  db_data:
