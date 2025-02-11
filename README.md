@@ -3,11 +3,11 @@
 MicroSlim egy teljesen moduláris, monorepo alapú backend és frontend fejlesztési sablon **Slim PHP** backenddel és **React mikrofrontend** architektúrával.
 
 ## 📌 Főbb jellemzők
-- ✅ **Slim PHP backend** – API Gateway + moduláris microservice-ek (publikus és privát)
-- ✅ **React mikrofrontendek** – Egy közös shell alkalmazással
-- ✅ **Monorepo struktúra** – Backend és frontend egy helyen
-- ✅ **MariaDB adatbázis** – 10.11.11 verzió + PHPMyAdmin támogatás
-- ✅ **Docker Compose alapú fejlesztés** – Egy paranccsal indítható
+- **Slim PHP backend** – API Gateway + moduláris microservice-ek (publikus és privát)
+- **React mikrofrontendek** – Egy közös shell alkalmazással
+- **Monorepo struktúra** – Backend és frontend egy helyen
+- **MariaDB adatbázis** – 10.11.11 verzió + PHPMyAdmin támogatás
+- **Docker Compose alapú fejlesztés** – Egy paranccsal indítható
 
 ## 📂 Mappastruktúra
 ```
