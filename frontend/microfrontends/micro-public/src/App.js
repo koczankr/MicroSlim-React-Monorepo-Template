@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { fetchApiData } from "./apiService";
 
-function App() {
+function PublicApp() {
+  const [publicData, setPublicData] = useState("");
+
+  useEffect(() => {
+    fetchApiData("public").then(data => setPublicData(data.message));
+  }, []);
+
   return (
-    <div>
-      <h2>Micro Public App</h2>
-      <p>Ez a Public Microfrontend</p>
+    <div style={{ border: "1px solid blue", padding: "10px", margin: "10px" }}>
+      <h2>Public Microfrontend</h2>
+      <div style={{ padding: "5px", border: "1px solid black" }}>
+        <p><strong>API Public válasz:</strong> {publicData}</p>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default PublicApp;
